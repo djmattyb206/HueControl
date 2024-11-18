@@ -108,15 +108,9 @@ Save the information into `HueLights.json`. Example:
 
    ```python
    # HueControl.py
-
    ```
 
-To preview `.htm` files in Visual Studio Code:
-
-1. Install the "HTML Preview" extension.
-2. Open the file and press `Ctrl+Shift+V` to view it.
-
-You can now use `HueControl.py` to control lights.
+Review the file named `Amazon Alexa Color Names and Examples and RGB code.pdf` to see a list of all the color names and their RGB values. You may need to install the extension named "vscode-pdf" to corretly view the contents of the PDF file.
 
 ## Useage
 First specify the name of the light you want to control. Then specify a color name or an RGB value.
