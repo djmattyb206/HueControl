@@ -13,9 +13,9 @@ pip install requests
 1. **Get your Hue Bridge IP address.**  
    Example: `192.168.8.238`
 
-2. **Generate a user token** by pressing the Hue Bridge's physical button and making an authenticated API request.
+2. **Generate a user token** by pressing the Hue Bridge's physical button which makes an authenticated API request.
 
-   Example code:
+   Within a few seconds of pressing the button, run this code:
 
    ```python
    # AuthenticatedApiControl.py
@@ -97,22 +97,17 @@ Save the information into `HueLights.json`. Example:
     "10": "Living Room 6"
 }
 ```
+Note that the order of the lights in HueLights.json doesn't matter
 
 ---
 
 # 4. Control the Hue Lights
 
-1. Review the contents of `Colors.csv` for available color names and RGB values.
+1. Review the contents of `Colors.csv` for available color names and RGB values. You can also review the file named `Amazon Alexa Color Names and Examples and RGB code.pdf` to see a list of all the color names, their RGB values and a preview of the color. You may need to install the extension named "vscode-pdf" to corretly view the contents of the PDF file.
 
-2. Example Python script to control lights:
+2. The Python script to control lights is HueControl.py
 
-   ```python
-   # HueControl.py
-   ```
-
-Review the file named `Amazon Alexa Color Names and Examples and RGB code.pdf` to see a list of all the color names and their RGB values. You may need to install the extension named "vscode-pdf" to corretly view the contents of the PDF file.
-
-## Useage
+## Using HueControl.py
 First specify the name of the light you want to control. Then specify a color name or an RGB value.
 
 To specify a color name use:
