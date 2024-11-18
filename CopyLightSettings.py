@@ -1,6 +1,7 @@
 import requests
 import os
 import json
+import argparse
 
 # Load bridge configuration from config.json
 config_file = os.path.join(os.path.dirname(__file__), "config.json")
@@ -9,6 +10,11 @@ with open(config_file, "r") as file:
 
 bridge_ip = config["bridge_ip"]
 username = config["username"]
+
+# Load light IDs and names from HueLights.json
+hue_lights_file = os.path.join(os.path.dirname(__file__), "HueLights.json")
+with open(hue_lights_file, "r") as file:
+    light_ids = {v: int(k) for k, v in json.load(file).items()}
 
 # Function to get light's current color and brightness
 def get_light_state(light_id):
@@ -42,16 +48,35 @@ def set_light_state(light_id, on_state, brightness, color_xy):
         print(f"Failed to set light {light_id}: {response.status_code}, {response.text}")
 
 # Main function to copy color and brightness from one light to another
-def copy_light_state(source_light_id, target_light_id):
+def copy_light_state(source_light_name, target_light_name):
+    source_light_id = light_ids.get(source_light_name)
+    target_light_id = light_ids.get(target_light_name)
+
+    if not source_light_id:
+        print(f"Source light '{source_light_name}' not found.")
+        return
+    if not target_light_id:
+        print(f"Target light '{target_light_name}' not found.")
+        return
+
     # Get the color and brightness of the source light
     on_state, brightness, color_xy = get_light_state(source_light_id)
     if on_state is not None:
         # Set the target light to match the source light
         set_light_state(target_light_id, on_state, brightness, color_xy)
     else:
-        print("Source light state could not be retrieved.")
+        print(f"Source light '{source_light_name}' state could not be retrieved.")
 
-# Example usage
-source_light_id = 16  # Replace with the source light ID (e.g., "Computer Desk Right")
-target_light_id = 18  # Replace with the target light ID (e.g., "Computer Desk Left")
-copy_light_state(source_light_id, target_light_id)
+if __name__ == "__main__":
+    # Set up argument parsing
+    parser = argparse.ArgumentParser(description="Copy settings from one Hue light to another.")
+    parser.add_argument("source_light", type=str, help="The name of the light to copy settings from.")
+    parser.add_argument("target_light", type=str, help="The name of the light to copy settings to.")
+    args = parser.parse_args()
+
+    # Execute the copy function with the provided arguments
+    copy_light_state(args.source_light, args.target_light)
+
+
+# Useage:
+# python CopyLightSettings.py "Computer Desk Right" "Computer Desk Left"
