@@ -117,3 +117,16 @@ To preview `.htm` files in Visual Studio Code:
 2. Open the file and press `Ctrl+Shift+V` to view it.
 
 You can now use `HueControl.py` to control lights.
+
+## Useage
+First specify the name of the light you want to control. Then specify a color name or an RGB value.
+
+To specify a color name use:
+ ```python
+python HueControl.py "Computer Desk Left" --color_name "Coral"
+   ```
+
+To specify an RGB value use:
+ ```python
+python HueControl.py "Computer Desk Left" --rgb 255,69,0
+   ```
